@@ -55,10 +55,10 @@ Ce composant attend les `props` suivantes :
 > Écrire le type des `props` attendues par le composant `Item`.
 
 Il affiche les données de l'item sous la forme d'un formulaire qui contient :
-- pour chaque propriété : un `<label>` (qui indique le nom de la propriété) et un `<input>` (type `"text"` pour le texte et type `"number"` pour les valeurs numériques). Chaque `<input>` a une propriété `name` qui permettra d'en récupérer facilement la valeur.
+- pour chaque propriété : un `<label>` (qui indique le nom de la propriété) et un `<input>` (type `"text"` pour le texte et type `"number"` pour les valeurs numériques). Chaque `<input>` a une propriété `name` qui permettra d'en récupérer facilement la valeur. On affecte la valeur initiale de chaque `<input>` (propriété  `defaultValue`) avec la valeur de la propriété correspondante de l'item.
 - un bouton de soumission. Les classes CSS `"small"` et `"action"` peuvent être affectées à ce bouton.
 
-À la soumission du formulaire (événement `onSubmit`), on appelle la fonction `updateItem` avec un objet dont les valeurs sont issues du formulaire.
+À la soumission du formulaire (événement `onSubmit`), on appelle une fonction qui annule le comportement standard du navigateur lors de la soumission d'un formulaire (`preventDefault`) puis appelle `updateItem` avec un objet dont les valeurs sont issues du formulaire.
 
 Afin d'indiquer clairement à l'utilisateur quand il doit valider les modifications faites en soumettant le formulaire, le composant stocke un booléen `shouldUpdate` dans son `state`, dont la valeur initiale est `false`. 
 
@@ -77,7 +77,7 @@ Constater que le coût total est bien mis à jour après la validation de la mod
 ---
 
 L'API `localStorage` exposée par les navigateurs permet de stocker des données (des couples clé / valeur sous forme de texte) associées à un domaine. L'interface de programmation est la suivante :
- - `localStorage.getItem(key)` : retourne la valeur associée à la clé `key`, ou `undefined` si la clé ne correspond à aucune entrée.
+ - `localStorage.getItem(key)` : retourne la valeur associée à la clé `key`, ou `null` si la clé ne correspond à aucune entrée.
  - `localStorage.setItem(key, value)` : stocke la valeur `value` associée à la clé `key`.
 
  Utiliser cette API afin de persister les données du composant `GroceryApp` dans le navigateur. Au chargement du composant, les données seront chargées si elles existent. À chaque modification des données, elles seront sauvegardées.
