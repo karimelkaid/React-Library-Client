@@ -58,7 +58,7 @@ Types
 
 On développe ici notre application client de manière complètement indépendante de l'API. On va donc commencer par définir les types des objets que l'on va manipuler.
 
-Dans un nouveau module `src/types.ts`, définir et exporter les types suivants : `Author`, `AuthorCreationData`, `Book`, `BookCreation Data`, `Tag`.
+Dans un nouveau module `src/types.ts`, définir et exporter les types suivants : `Author`, `AuthorCreationData`, `Book`, `BookCreationData`, `Tag`.
 
 Dans ces types, les tableaux d'entités associées (par exemple les `tags` d'un `Book`) seront déclarés optionnels.
 
@@ -135,7 +135,7 @@ Ajout/Suppression d'un auteur
 
 Afin de pouvoir ajouter et supprimer des auteurs, commencer par écrire dans le composant `Authors`, les fonctions `async` suivantes :
 - `addAuthor` : reçoit un objet de type `AuthorCreationData`. Appelle et attend le retour d'une fonction `add_author` fournie par le module `src/api.ts`, puis relance la fonction `loadAuthors` pour rafraîchir la liste des auteurs.
-- `removePerson` : reçoit l'identifiant de la personne à supprimer. Appelle et attend le retour d'une fonction `remove_author` fournie par le module `src/api.ts`, puis relance la fonction `loadAuthors` pour rafraîchir la liste des auteurs.
+- `removeAuthor` : reçoit l'identifiant de la personne à supprimer. Appelle et attend le retour d'une fonction `remove_author` fournie par le module `src/api.ts`, puis relance la fonction `loadAuthors` pour rafraîchir la liste des auteurs.
 
 Les fonctions `add_author` et `remove_author` sont donc à ajouter dans le module `src/api.ts`.
 
