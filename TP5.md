@@ -46,7 +46,7 @@ Puis dans le fichier principal de votre application, ajouter les lignes suivante
 
 ```js
 // ...
-const cors = require('cors');
+import cors from 'cors';
 // ...
 app.use(cors());
 ```
