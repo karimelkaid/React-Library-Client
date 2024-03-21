@@ -53,6 +53,14 @@ app.use(cors());
 
 Dans ce cas simple (configuration par défaut), le serveur autorise toutes les requêtes en provenance de n'importe quelle origine. On pourrait restreindre les origines autorisées en précisant plus de choses dans un objet de configuration passé à la fonction `cors()`.
 
+Afin que le code client puisse lire le contenu de l'en-tête `X-Total-Count` fourni par l'API, il faut également ajouter dans la foulée un middleware qui expose cet en-tête (sinon l'en-tête arrive bien au client, mais le navigateur ne le laisse pas y accéder) :
+```js
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+  next();
+});
+```
+
 Types
 ---
 
