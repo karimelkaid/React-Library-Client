@@ -354,10 +354,38 @@ Extensions
 
 Il y a énormément d'extensions possibles à ce projet.
 
-Vous pouvez étendre les fonctionnalités en permettant d'écrire des commentaires et de donner des notes comme prévu dans le modèle de données (en choisissant à la main l'utilisateur qui a écrit le commentaire et la note).
+Vous pouvez étendre les fonctionnalités en permettant d'écrire des commentaires et de donner des notes.
+
+Pour simplifier les choses, on ne mettra pas en place la notion d'utilisateur ni de mécanisme d'authentification. Un commentaire pourra donc être simplement :
+- le nom de la personne qui a écrit le commentaire
+- le texte du commentaire
+- l'identifiant du livre auquel le commentaire est associé
+
+De même, une note pourra être simplement :
+- le nom de la personne qui a donné la note
+- la note (un nombre entier entre 0 et 5)
+- l'identifiant du livre auquel la note est associée
+
+Une fois ces entités en place au niveau de l'API, vous pourrez les gérer depuis l'interface : afficher les commentaires et les notes dans l'interface de détail d'un livre, permettre d'ajouter des commentaires et des notes, etc.
+
+---
 
 Vous pouvez ajouter des fonctionnalités de recherche avancée, de tri, de filtrage, etc.
 
-Vous pouvez travailler à l'amélioration de l'interface graphique en utilisant des bibliothèques de composants comme `shadcn/ui` par exemple (https://ui.shadcn.com/).
+Par exemple, si on a des notes, on peut imaginer récupérer la moyenne des notes de chaque livre, et permettre de filtrer les livres en fonction de cette moyenne.
+
+---
+
+Vous pouvez aussi choisir de travailler à l'amélioration de l'interface graphique en utilisant des bibliothèques de composants comme `shadcn/ui` par exemple (https://ui.shadcn.com/).
+
+---
+
+Une autre fonctionnalité possible est la gestion d'une liste d'auteurs ou de livres favoris stockée directement côté client, dans le `localStorage` du navigateur.
+
+À une route dédiée (`/favorites` par exemple), on affiche un composant qui vient charger la liste des auteurs et livres favoris depuis le `localStorage`, puis les affiche sous la forme de liens vers les pages correspondantes.
+
+Sur les pages des auteurs et des livres, on ajoute un bouton qui permet d'ajouter ou de retirer l'auteur ou le livre de la liste des favoris locaux.
+
+---
 
 ...
