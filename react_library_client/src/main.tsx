@@ -15,6 +15,14 @@ const router = createBrowserRouter([
                     <p>Bienvenue sur notre site : Choisissez une catégorie.</p>
                 )
             },
+            {
+                path: "authors",
+                element: <p>Page des auteurs.</p>
+            },
+            {
+                path: "books",
+                element: <p>Page des livres.</p>
+            }
         ]
     },
     {
