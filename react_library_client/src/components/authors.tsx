@@ -1,35 +1,48 @@
-import {useEffect, useState} from "react";
-import {get_authors} from "../api.ts";
-import {Author} from "../types.ts";
+import React, { useEffect, useState } from "react";
+import { get_authors } from "../api";
+import { Author } from "../types";
+import { Outlet } from "react-router-dom";
 
-function Authors(){
+function Authors() {
     const [authors, setAuthors] = useState<Author[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        async function loadAuthors() {
+            setLoading(true);
+            try {
+                const authorsData = await get_authors();
+                console.log("Authors:", authorsData);
+                setAuthors(authorsData);
+            } catch (error) {
+                console.error("Failed to fetch authors:", error);
+            }
+            setLoading(false);
+        }
+
         loadAuthors();
     }, []);
 
-
-    const loadAuthors = async () => {
-        setLoading(true);
-
-        const authors = await get_authors();
-        console.log(authors);
-        setAuthors(authors);
-
-        setLoading(false);
-    };
-
-
-
+    if (loading) {
+        return <div>Chargement...</div>;
+    }
 
     return (
-        <div>
-            <h1>Page des auteurs</h1>
+        <div id="container">
+            <div id="sidebar">
+                <ul>
+                    {authors.map((author) => (
+                        <li key={author.id}>
+                            {author.firstname} {author.lastname}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div id="info">
+                <Outlet />
+            </div>
         </div>
-    )
+    );
 }
 
 export default Authors;
