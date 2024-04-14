@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
 import Root from "./routes/root.tsx";
+import Authors from "./components/authors.tsx";
+import Books from "./components/books.tsx";
 
 const router = createBrowserRouter([
     {
@@ -12,16 +14,16 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: (
-                    <p>Bienvenue sur notre site : Choisissez une catégorie.</p>
+                    <p>Bienvenue sur le site de gestion de la bibliothèque.</p>
                 )
             },
             {
                 path: "authors",
-                element: <p>Page des auteurs.</p>
+                element: <Authors />
             },
             {
                 path: "books",
-                element: <p>Page des livres.</p>
+                element: <Books />
             }
         ]
     },
