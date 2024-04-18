@@ -70,6 +70,10 @@ function Authors() {
     }
 
 
+    function handleRemove(authorId: number) {
+        console.log("Remove author " + authorId);
+    }
+
     return (
         <div id="container">
             <div id="sidebar">
@@ -87,7 +91,7 @@ function Authors() {
                 <ul>
                     {authors.map((author) => (
                         <li key={author.id}>
-                            {author.firstname} {author.lastname}
+                            {author.firstname} {author.lastname} <button className="small danger" onClick={() => {handleRemove(author.id)}}>Supprimer</button>
                         </li>
                     ))}
                 </ul>
