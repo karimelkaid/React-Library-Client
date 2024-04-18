@@ -1,4 +1,4 @@
-import {add_author, get_authors} from "../api";
+import {add_author, get_authors, remove_author} from "../api";
 import {Author, AuthorCreationData} from "../types";
 import { Outlet } from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -70,8 +70,18 @@ function Authors() {
     }
 
 
-    function handleRemove(authorId: number) {
+    /*
+        handleRemove :
+            Removes an author from the api and reloads the list of authors.
+        Parameter(s) :
+            - authorId : number : The id of the author to remove.
+        Return :
+            void
+    */
+    async function handleRemove(authorId: number) {
         console.log("Remove author " + authorId);
+        await remove_author(authorId);
+        loadAuthors();  // When the author is removed, reload the list of authors
     }
 
     return (

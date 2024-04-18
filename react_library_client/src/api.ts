@@ -47,3 +47,13 @@ export async function add_author(authorCreationData : AuthorCreationData) {
     const author = await res.json();
     return author;
 }
+
+export async function remove_author(authorId: number) {
+    const res = await fetch(`${apiBasename}/authors/${authorId}`, {
+        method: "DELETE"
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+}
