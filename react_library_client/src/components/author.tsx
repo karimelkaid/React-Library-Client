@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import {useEffect, useState} from "react";
 import {get_author} from "../api.ts";
 import {Author as IAuthor} from "../types.ts";
+import AuthorBooks from "./authorBooks.tsx";
 
 function Author() {
     const { authorId } = useParams();
@@ -29,7 +30,7 @@ function Author() {
     if (!author) return <div>Chargement de l'auteur...</div>;
 
     return (
-        <div>{author.lastname} {}</div>
+        <AuthorBooks />
     );
 }
 

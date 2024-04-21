@@ -1,4 +1,4 @@
-import {AuthorCreationData} from "./types.ts";
+import {AuthorCreationData, BookCreationData} from "./types.ts";
 
 const apiBasename = "http://192.168.1.9:3000";
 
@@ -91,6 +91,45 @@ export async function get_author(authorId: number) {
 
 export async function remove_author(authorId: number) {
     const res = await fetch(`${apiBasename}/authors/${authorId}`, {
+        method: "DELETE"
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+}
+
+
+// -------------------------------------------- BOOKS --------------------------------------------
+
+export async function get_books_of_author(authorId: number) {
+    const res = await fetch(`${apiBasename}/authors/${authorId}/books`);
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+    const books = await res.json();
+    return books;
+}
+
+export async function add_book(authorId : number, bookData : BookCreationData) {
+    const res = await fetch(`${apiBasename}/authors/` + authorId + `/books`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookData),
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+    const book = await res.json();
+    return book;
+}
+
+export async function remove_book(bookId: number) {
+    const res = await fetch(`${apiBasename}/books/${bookId}`, {
         method: "DELETE"
     });
     if (!res.ok) {
