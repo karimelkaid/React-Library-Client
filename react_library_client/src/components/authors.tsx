@@ -1,6 +1,6 @@
 import {add_author, get_authors, remove_author} from "../api";
 import {Author, AuthorCreationData} from "../types";
-import { Outlet } from "react-router-dom";
+import {NavLink, Outlet} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 function Authors() {
@@ -114,7 +114,10 @@ function Authors() {
                 <ul>
                     {authors.map((author) => (
                         <li key={author.id}>
-                            {author.firstname} {author.lastname} <button className="small danger" onClick={() => {handleRemove(author.id)}}>Supprimer</button>
+                            <NavLink to={`/authors/${author.id}`}>
+                                {author.firstname} {author.lastname}
+                            </NavLink>
+                            <button className="small danger" onClick={() => handleRemove(author.id)}>Supprimer</button>
                         </li>
                     ))}
                 </ul>

@@ -5,6 +5,7 @@ import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
 import Root from "./routes/root.tsx";
 import Authors from "./components/authors.tsx";
 import Books from "./components/books.tsx";
+import Author from "./components/author.tsx";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +20,17 @@ const router = createBrowserRouter([
             },
             {
                 path: "authors",
-                element: <Authors />
+                element: <Authors />,
+                children: [
+                    {
+                        path: "",
+                        element: <p>Choisissez un auteur pour voir ses informations.</p>
+                    },
+                    {
+                        path: ":authorId",
+                        element: <Author />
+                    }
+                ]
             },
             {
                 path: "books",
