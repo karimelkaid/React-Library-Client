@@ -101,15 +101,12 @@ const AuthorBooks = () => {
         <div>
             <h2>Ajouter un livre</h2>
             <form onSubmit={handleAddBook}>
-                <input type="text" name="title" placeholder="Title" />
-                <input type="text" name="year" placeholder="Publication Year" />
+                <input type="text" name="title" placeholder="Title"/>
+                <input type="text" name="year" placeholder="Publication Year"/>
                 <button type="submit">Add Book</button>
             </form>
 
             <h2>Livre(s) de l'auteur</h2>
-            {
-                loading && <div>Loading books...</div>
-            }
             <ul>
                 {books.map(book => (
                     <li key={book.id}>
@@ -118,6 +115,10 @@ const AuthorBooks = () => {
                     </li>
                 ))}
             </ul>
+
+            {
+                loading && <div>Loading books...</div>
+            }
         </div>
     );
 };

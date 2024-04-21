@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { add_author, get_authors, remove_author } from '../api';
 import { Author, AuthorCreationData } from '../types';
 import Pagination from "../utils/pagination.tsx";
+import {goTo} from "../utils/globalFunctions.tsx";
 
 
 function Authors() {
@@ -99,6 +100,7 @@ function Authors() {
             await remove_author(authorId);
             loadAuthors(); // Reload the authors list to reflect the removal
             setErrorMessage(""); // Clear any existing errors on successful operation
+            goTo('/authors');
         } catch (error) {
             console.error("Failed to remove author:", error);
             setErrorMessage("Failed to remove author. Please try again later.");

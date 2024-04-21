@@ -6,6 +6,7 @@ import Root from "./routes/root.tsx";
 import Authors from "./components/authors.tsx";
 import Books from "./components/books.tsx";
 import Author from "./components/author.tsx";
+import Book from "./components/book.tsx";
 
 const router = createBrowserRouter([
     {
@@ -34,7 +35,17 @@ const router = createBrowserRouter([
             },
             {
                 path: "books",
-                element: <Books />
+                element: <Books />,
+                children: [
+                    {
+                        path: "",
+                        element: <p>Choisissez un livre pour voir ses informations.</p>
+                    },
+                    {
+                        path: ":bookId",
+                        element: <Book />
+                    }
+                ]
             }
         ]
     },

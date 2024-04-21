@@ -101,6 +101,42 @@ export async function remove_author(authorId: number) {
 
 
 // -------------------------------------------- BOOKS --------------------------------------------
+interface GetBooksParams {
+    page?: number;      // Number of the page to fetch
+    pageSize?: number;  // Number of items per page
+    title?: string; // Title of the book to search for
+}
+export async function get_books({ page, pageSize, title }: GetBooksParams) {
+    // Calculating skip and take values
+    const skip = page && pageSize ? (page - 1) * pageSize : undefined;
+    const take = pageSize;
+
+    // Construct the query string
+    let queryString = '';
+    if (skip !== undefined && take !== undefined) {
+        queryString = `?skip=${skip}&take=${take}`;
+    }
+
+    // Add the title parameter to the query string if it is provided
+    if (title) {
+        queryString += `${queryString ? '&' : '?'}title=${encodeURIComponent(title)}`;
+    }
+
+    const res = await fetch(`${apiBasename}/books${queryString}`);
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+    const books = await res.json();
+    // Retrieve the total count of books from the response headers
+    const totalCount = parseInt(res.headers.get('X-Total-Count') || '0', 10);
+
+    return {
+        books,
+        totalCount
+    };
+}
+
 
 export async function get_books_of_author(authorId: number) {
     const res = await fetch(`${apiBasename}/authors/${authorId}/books`);
@@ -110,6 +146,17 @@ export async function get_books_of_author(authorId: number) {
     }
     const books = await res.json();
     return books;
+}
+
+export async function get_book(bookId: number) {
+    const res = await fetch(`${apiBasename}/books/${bookId}`);
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+    const book = await res.json();
+    return book;
+
 }
 
 export async function add_book(authorId : number, bookData : BookCreationData) {
