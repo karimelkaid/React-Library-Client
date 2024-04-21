@@ -1,6 +1,6 @@
 import {AuthorCreationData} from "./types.ts";
 
-const apiBasename = "http://localhost:3000";
+const apiBasename = "http://192.168.1.9:3000";
 
 /*
     get_authors :

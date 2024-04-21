@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 function Authors() {
     const [authors, setAuthors] = useState<Author[]>([]);
     const [loading, setLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");  // State to store error messages
 
     useEffect(() => {
         loadAuthors();
@@ -40,8 +41,14 @@ function Authors() {
             void
     */
     async function addAuthor(authorCreationData: AuthorCreationData) {
-        await add_author(authorCreationData)
-        loadAuthors();
+        try{
+            await add_author(authorCreationData)
+            loadAuthors();
+        }
+        catch(error){
+            console.error("Failed to add author:", error);
+            setErrorMessage("Failed to add author. Please check your data and try again.");
+        }
     }
 
     /*
@@ -79,14 +86,20 @@ function Authors() {
             void
     */
     async function handleRemove(authorId: number) {
-        console.log("Remove author " + authorId);
-        await remove_author(authorId);
-        loadAuthors();  // When the author is removed, reload the list of authors
+        try {
+            await remove_author(authorId);
+            loadAuthors();
+            setErrorMessage("");  // Clear any existing errors on successful operation
+        } catch (error) {
+            console.error("Failed to remove author:", error);
+            setErrorMessage("Failed to remove author. Please try again later.");
+        }
     }
 
     return (
         <div id="container">
             <div id="sidebar">
+                {errorMessage && <p className="error">{errorMessage}</p>}
                 <form onSubmit={handleAdd}>
                     <input
                         type="text"
