@@ -38,17 +38,33 @@ const AuthorBooks = () => {
         loadBooksOfAuthor();
     }
 
+    /*
+        handleAddBook :
+            Retrieves field values for the book from the form and calls the addBook function.
+        Parameter(s) :
+            - event : React.FormEvent<HTMLFormElement> : The form submission event.
+        Return :
+            - None
+    */
     function handleAddBook(event : React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.currentTarget as HTMLFormElement;
         const formData = new FormData(form);
         const title = formData.get('title') as string;
-        const year = formData.get('year') as string;
+        const publication_year = formData.get('year') as string;
 
-        const bookData : BookCreationData = {
-            title: title,
-            publication_year: parseInt(year),
-        };
+        let bookData : BookCreationData;
+        if (publication_year) {
+            bookData = {
+                title: title,
+                publication_year: parseInt(publication_year, 10),
+            }
+        }
+        else{
+            bookData = {
+                title: title,
+            };
+        }
 
         // Call the addBook function with the bookData
         if (typeof authorId === "number") {
@@ -67,13 +83,19 @@ const AuthorBooks = () => {
         }
 
     }
+
+    /*
+        handleDeleteBook :
+            Calls the removeBook function with the bookId to delete the book.
+        Parameter(s) :
+            - bookId : number : The ID of the book to delete.
+        Return :
+            - None
+     */
     function handleDeleteBook(bookId: number){
         removeBook(bookId);
     }
 
-    if (loading) {
-        return <div>Loading books...</div>;
-    }
 
     return (
         <div>
@@ -85,6 +107,9 @@ const AuthorBooks = () => {
             </form>
 
             <h2>Livre(s) de l'auteur</h2>
+            {
+                loading && <div>Loading books...</div>
+            }
             <ul>
                 {books.map(book => (
                     <li key={book.id}>
