@@ -12,10 +12,11 @@ function Authors() {
     const [currentPage, setCurrentPage] = useState(1); // State to store the current page number
     const [totalItems, setTotalItems] = useState(0); // State to store the total number of items
     const pageSize = 10; // Define your page size here
+    const [filter, setFilter] = useState("");   // State to store the filter value
 
     useEffect(() => {
         loadAuthors();
-    }, [currentPage]); // When the currentPage changes, reload the authors
+    }, [currentPage, filter]); // When the currentPage or filter changes, reload the authors
 
     /*
         loadAuthors :
@@ -28,9 +29,14 @@ function Authors() {
     async function loadAuthors() {
         setLoading(true);
         try {
-            const { authors, totalCount } = await get_authors({ page: currentPage, pageSize });
+            const { authors, totalCount } = await get_authors({ page: currentPage, pageSize, lastname : filter });
             setAuthors(authors);
             setTotalItems(totalCount); // Now also updates the total number of authors
+
+            if (currentPage > 1 && totalCount < (currentPage - 1) * pageSize) {
+                setCurrentPage(1); // Reset to the first page if the current page is empty
+            }
+
         } catch (error) {
             console.error("Failed to fetch authors:", error);
             setErrorMessage("Failed to load authors. Please try again later.");
@@ -99,13 +105,35 @@ function Authors() {
         }
     }
 
+    /*
+        handleFilter :
+            Processes the filter entered to filter the list of authors by last name and reloads the list of authors because of the filter.
+        Parameter(s) :
+            - event: React.FormEvent<HTMLFormElement> : The form submission event
+        Return :
+            - None
+     */
+    function handleFilter(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+        setFilter(formData.get('lastnameFilter') as string);
+    }
+
     return (
         <div id="container">
             <div id="sidebar">
                 {errorMessage && <p className="error">{errorMessage}</p>}
+
+                <form onSubmit={handleFilter}>
+                    <input type="text" name="lastnameFilter" placeholder="Filter by Last Name" />
+                    <button type="submit">Filter</button>
+                </form>
+
+
                 <form onSubmit={handleAdd}>
-                    <input type="text" name="firstname"/>
-                    <input type="text" name="lastname"/>
+                    <input type="text" name="firstname" placeholder="First Name"/>
+                    <input type="text" name="lastname" placeholder="Last Name"/>
                     <button type="submit">Add Author</button>
                 </form>
 

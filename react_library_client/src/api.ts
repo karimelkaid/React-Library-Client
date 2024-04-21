@@ -5,6 +5,7 @@ const apiBasename = "http://192.168.1.9:3000";
 interface GetAuthorsParams {
     page?: number;      // Number of the page to fetch
     pageSize?: number;  // Number of items per page
+    lastname?: string; // Lastname of the author to search for
 }
 
 /*
@@ -17,7 +18,7 @@ interface GetAuthorsParams {
         - Throws an error with a relevant message if the request fails.
 */
 
-export async function get_authors({ page, pageSize }: GetAuthorsParams) {
+export async function get_authors({ page, pageSize, lastname }: GetAuthorsParams) {
     // Calculating skip and take values
     const skip = page && pageSize ? (page - 1) * pageSize : undefined;
     const take = pageSize;
@@ -27,6 +28,12 @@ export async function get_authors({ page, pageSize }: GetAuthorsParams) {
     if (skip !== undefined && take !== undefined) {
         queryString = `?skip=${skip}&take=${take}`;
     }
+
+    // Add the lastname parameter to the query string if it is provided
+    if (lastname) {
+        queryString += `${queryString ? '&' : '?'}lastname=${encodeURIComponent(lastname)}`;
+    }
+
 
     const res = await fetch(`${apiBasename}/authors${queryString}`);
     if (!res.ok) {
