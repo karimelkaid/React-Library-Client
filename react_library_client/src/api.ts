@@ -2,6 +2,11 @@ import {AuthorCreationData} from "./types.ts";
 
 const apiBasename = "http://192.168.1.9:3000";
 
+interface GetAuthorsParams {
+    page?: number;      // Number of the page to fetch
+    pageSize?: number;  // Number of items per page
+}
+
 /*
     get_authors :
         Fetches the list of authors from the api.
@@ -12,14 +17,33 @@ const apiBasename = "http://192.168.1.9:3000";
         - Throws an error with a relevant message if the request fails.
 */
 
-export async function get_authors() {
-    const res = await fetch(`${apiBasename}/authors`);
+export async function get_authors({ page, pageSize }: GetAuthorsParams) {
+    // Calculating skip and take values
+    const skip = page && pageSize ? (page - 1) * pageSize : undefined;
+    const take = pageSize;
+
+    // Construct the query string
+    let queryString = '';
+    if (skip !== undefined && take !== undefined) {
+        queryString = `?skip=${skip}&take=${take}`;
+    }
+
+    const res = await fetch(`${apiBasename}/authors${queryString}`);
     if (!res.ok) {
         const msg = await res.text();
         throw new Error(msg);
     }
+
     const authors = await res.json();
-    return authors;
+    // Retrieve the total count of authors from the response headers
+    const totalCount = parseInt(res.headers.get('X-Total-Count') || '0', 10);
+
+    // Return the authors and the total count
+    return {
+        authors,
+        totalCount
+    };
+
 }
 
 /*
