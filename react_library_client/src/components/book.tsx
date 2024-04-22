@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { Author, Book as IBook } from "../types";
 import { get_author, get_book } from "../api";
@@ -28,10 +28,12 @@ function Book() {
         }
 
         try {
-            const fetchedBook = await get_book(idNum);
+            const fetchedBook : IBook = await get_book(idNum);
             setBook(fetchedBook);
 
-            const authorOfBook = await get_author(idNum);
+            const authorOfBookId = fetchedBook.authorId;
+            //console.log('Author ID:', authorOfBookId);
+            const authorOfBook : Author = await get_author(authorOfBookId);
             setAuthor(authorOfBook);
         } catch (error) {
             console.error('An error occurred while fetching book details:', error);
@@ -47,7 +49,10 @@ function Book() {
         <div>
             <h2>{book.title}</h2>
             <p>
-                <strong>Author:</strong> {author?.lastname ?? 'Auteur inconnu'}
+                <strong>Author:</strong>
+                <NavLink to={"/authors/" + author?.id}>
+                    {author ? `${author.firstname} ${author.lastname}` : 'Auteur inconnu'}
+                </NavLink>
             </p>
             <p>
                 <strong>Publication Year:</strong> {book.publication_year}
