@@ -117,7 +117,7 @@ const AuthorBooks = () => {
             </ul>
 
             {
-                loading && <div>Loading books...</div>
+                loading && <div>Chargement des livres de l'auteur...</div>
             }
         </div>
     );

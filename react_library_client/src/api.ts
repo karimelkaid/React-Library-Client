@@ -1,6 +1,6 @@
 import {AuthorCreationData, BookCreationData} from "./types.ts";
 
-const apiBasename = "http://192.168.1.9:3000";
+const apiBasename = "http://localhost:3000";
 
 interface GetAuthorsParams {
     page?: number;      // Number of the page to fetch
@@ -178,6 +178,48 @@ export async function add_book(authorId : number, bookData : BookCreationData) {
 export async function remove_book(bookId: number) {
     const res = await fetch(`${apiBasename}/books/${bookId}`, {
         method: "DELETE"
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+}
+
+// -------------------------------------------- TAGS --------------------------------------------
+
+export async function get_all_tags() {
+    const res = await fetch(`${apiBasename}/tags`);
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+    const tags = await res.json();
+    return tags;
+}
+
+export async function get_tags(bookId: number) {
+    const res = await fetch(`${apiBasename}/books/${bookId}/tags`);
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+    const tags = await res.json();
+    return tags;
+}
+
+export async function remove_tag_on_book(bookId: number, tagId: number) {
+    const res = await fetch(`${apiBasename}/books/${bookId}/tags/${tagId}`, {
+        method: "DELETE"
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+}
+
+export async function add_tag_on_book(bookId: number, tagId: number) {
+    const res = await fetch(`${apiBasename}/books/${bookId}/tags/${tagId}`, {
+        method: "POST",
     });
     if (!res.ok) {
         const msg = await res.text();

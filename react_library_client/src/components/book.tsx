@@ -2,6 +2,7 @@ import {NavLink, useParams} from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { Author, Book as IBook } from "../types";
 import { get_author, get_book } from "../api";
+import BookTags from "./bookTags.tsx";
 
 function Book() {
     const { bookId } = useParams();
@@ -57,6 +58,8 @@ function Book() {
             <p>
                 <strong>Publication Year:</strong> {book.publication_year}
             </p>
+
+            <BookTags />
         </div>
     );
 }

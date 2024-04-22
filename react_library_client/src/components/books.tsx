@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import Pagination from "../utils/pagination.tsx";
 import {Book} from "../types.ts";
 import {get_books, remove_book} from "../api.ts";
+import {goTo} from "../utils/globalFunctions.tsx";
 
 
 function Books() {
