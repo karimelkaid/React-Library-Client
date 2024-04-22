@@ -17,6 +17,14 @@ const AuthorBooks = () => {
         loadBooksOfAuthor();
     }, [authorId]);
 
+    /*
+    loadBooksOfAuthor :
+        Fetches and sets the books written by the specified author.
+    Parameter(s) :
+        - None
+    Return :
+        - None
+    */
     async function loadBooksOfAuthor() {
         setLoading(true);
         try {
@@ -33,6 +41,15 @@ const AuthorBooks = () => {
     }
 
 
+    /*
+    addBook :
+        Adds a new book to the author's book list and updates the view.
+    Parameter(s) :
+        - authorId : number : The ID of the author.
+        - bookData : BookCreationData : The data of the new book to be added.
+    Return :
+        - None
+    */
     async function addBook(authorId : number, bookData: BookCreationData) {
         await add_book(authorId, bookData);
         loadBooksOfAuthor();
@@ -40,7 +57,7 @@ const AuthorBooks = () => {
 
     /*
         handleAddBook :
-            Retrieves field values for the book from the form and calls the addBook function.
+            Handles the form submission event for adding a new book.
         Parameter(s) :
             - event : React.FormEvent<HTMLFormElement> : The form submission event.
         Return :
@@ -73,6 +90,14 @@ const AuthorBooks = () => {
 
     }
 
+    /*
+    removeBook :
+        Removes a book from the author's book list and updates the view.
+    Parameter(s) :
+        - bookId : number : The ID of the book to be removed.
+    Return :
+        - None
+    */
     async function removeBook(bookId: number) {
         try {
             await remove_book(bookId);
@@ -86,12 +111,12 @@ const AuthorBooks = () => {
 
     /*
         handleDeleteBook :
-            Calls the removeBook function with the bookId to delete the book.
+            Processes the request to delete a book.
         Parameter(s) :
             - bookId : number : The ID of the book to delete.
         Return :
             - None
-     */
+    */
     function handleDeleteBook(bookId: number){
         removeBook(bookId);
     }

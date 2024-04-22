@@ -1,6 +1,6 @@
 import {AuthorCreationData, AuthorUpdateData, BookCreationData} from "./types.ts";
 
-const apiBasename = "http://192.168.1.9:3000";
+const apiBasename = "http://localhost:3000";
 
 interface GetAuthorsParams {
     page?: number;      // Number of the page to fetch

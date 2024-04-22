@@ -3,28 +3,35 @@ import {Pencil} from "lucide-react";
 
 interface EditableTextProps {
     value: string;
-    onUpdate: (newValue: string) => Promise<void>;
-    reloadMethod: () => void;
+    onUpdate: (newValue: string) => void;
 }
 
-const EditableText = ({ value, onUpdate, reloadMethod } : EditableTextProps) => {
+const EditableText = ({ value, onUpdate } : EditableTextProps) => {
     const [editing, setEditing] = useState(false);
     const [updating, setUpdating] = useState(false);
     const [inputValue, setInputValue] = useState(value);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    /*
+    handleSubmit :
+        Handles the form submission event for updating the text value.
+    Parameter(s) :
+        - event : React.FormEvent<HTMLFormElement> : The form submission event.
+    Return :
+        - None
+    */
+     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         setUpdating(true);
         try {
-            await onUpdate(inputValue);
+            console.log('inputValue:', inputValue);
+            onUpdate(inputValue);
             setEditing(false);
         } catch (error) {
             console.error(error);
         } finally {
             setUpdating(false);
-            reloadMethod();
         }
-    };
+    }
 
     if (editing) {
         return (

@@ -4,6 +4,8 @@ import {Author as IAuthor} from "../types.ts";
 import AuthorBooks from "./authorBooks.tsx";
 import EditableText from "./editableText.tsx";
 import {useEffect, useState} from "react";
+import { refreshWindow} from "../utils/globalFunctions.tsx";
+
 
 function Author() {
     const { authorId } = useParams();
@@ -29,13 +31,42 @@ function Author() {
         }
     }
 
+    /*
+        updateFirstname :
+            Updates the author's first name and refreshes the view.
+        Parameter(s) :
+            - newFirstname : string : The new first name of the author
+        Return :
+            - None
+     */
+    async function updateFirstname(newFirstname: string) {
+        await update_author(author.id, {firstname: newFirstname});
+        refreshWindow();
+    }
+
+    /*
+        updateLastname :
+            Updates the author's last name and refreshes the view.
+        Parameter(s) :
+            - newLastname : string : The new last name of the author
+        Return :
+            - None
+     */
+    async function updateLastname(newLastname: string) {
+        await update_author(author.id, {lastname: newLastname});
+        refreshWindow()
+    }
+
 
     if (!author) return <div>Chargement de l'auteur...</div>;
 
     return (
         <div>
-            <p>First name : <EditableText value={author.firstname} onUpdate={(newFirstname) => update_author(author.id, {firstname: newFirstname})} reloadMethod={loadAuthor()}/> </p>
-            <p> Last name : <EditableText value={author.lastname} onUpdate={(newLastname) => update_author(author.id, {lastname: newLastname})}/> </p>
+            <p>
+                First name :
+                <EditableText value={author.firstname} onUpdate={updateFirstname}/>
+            </p>
+            <p> Last name : <EditableText value={author.lastname} onUpdate={updateLastname}/> </p>
             <AuthorBooks />
         </div>
     );

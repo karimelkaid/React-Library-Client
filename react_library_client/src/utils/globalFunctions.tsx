@@ -1,3 +1,4 @@
+
 /*
         goTo :
             Navigates to the specified path using the HTML5 history API.
@@ -12,4 +13,17 @@ export function goTo(path: string) {
         .pushState({}, '', path);
 
     window.dispatchEvent(new Event('popstate'));
+}
+
+
+/*
+    refreshWindow :
+        Refreshes the current window.
+    Parameter(s) :
+        - None
+    Return :
+        - None
+*/
+export function refreshWindow() {
+    window.location.reload();
 }

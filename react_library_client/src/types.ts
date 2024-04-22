@@ -18,10 +18,9 @@ export type AuthorUpdateData = {
 export type Book = {
     id: number,
     title: string,
-    publication_year: number,
+    publication_year?: number,
     authorId: number,
     tags: Tag[];
-    rating: number;
 }
 
 export type BookCreationData = {

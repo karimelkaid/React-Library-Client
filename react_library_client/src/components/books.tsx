@@ -20,13 +20,14 @@ function Books() {
     }, [currentPage, filter]); // When the currentPage or filter changes, reload the authors
 
     /*
-        loadAuthors :
-            Fetches the list of authors from the api and updates the state.
-        Parameter(s) :
-            - None
-        Return :
-            - None
+    loadBooks :
+        Fetches the list of books from the api based on the current page and filter, and updates the state.
+    Parameter(s) :
+        - None
+    Return :
+        - None
     */
+
     async function loadBooks() {
         setLoading(true);
         try {
@@ -51,9 +52,9 @@ function Books() {
 
     /*
         handleRemove :
-            Removes an author from the api and reloads the list of authors.
+            Removes a book from the api and reloads the list of books.
         Parameter(s) :
-            - authorId: number : The ID of the author to remove
+            - bookId: number : The ID of the book to remove
         Return :
             - None
     */
@@ -73,12 +74,12 @@ function Books() {
 
     /*
         handleFilter :
-            Processes the filter entered to filter the list of authors by last name and reloads the list of authors because of the filter.
+            Processes the filter entered to filter the list of books by title and reloads the list of books accordingly.
         Parameter(s) :
             - event: React.FormEvent<HTMLFormElement> : The form submission event
         Return :
             - None
-     */
+    */
     function handleFilter(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.currentTarget;
