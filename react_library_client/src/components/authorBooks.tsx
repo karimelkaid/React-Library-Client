@@ -124,14 +124,14 @@ const AuthorBooks = () => {
 
     return (
         <div>
-            <h2>Ajouter un livre</h2>
+            <h2>Add a book</h2>
             <form onSubmit={handleAddBook}>
                 <input type="text" name="title" placeholder="Title"/>
                 <input type="text" name="year" placeholder="Publication Year"/>
                 <button type="submit">Add Book</button>
             </form>
 
-            <h2>Livre(s) de l'auteur</h2>
+            <h2>Author's books</h2>
             <ul>
                 {books.map(book => (
                     <li key={book.id}>
@@ -142,7 +142,7 @@ const AuthorBooks = () => {
             </ul>
 
             {
-                loading && <div>Chargement des livres de l'auteur...</div>
+                loading && <div>Loading books...</div>
             }
         </div>
     );

@@ -125,7 +125,7 @@ const BookTags = () => {
     }
 
     if( loading ){
-        return <div>Chargement des tags du livre...</div>;
+        return <div>Loading tags...</div>;
     }
 
     return (
@@ -140,7 +140,7 @@ const BookTags = () => {
                 ))}
             </ul>
 
-            <h2>Ajouter un tag</h2>
+            <h2>Add Tag</h2>
             <form onSubmit={handleAddTagOnBook}>
                 <select name="tagId" defaultValue="">
                     <option value="" disabled selected>
@@ -155,7 +155,7 @@ const BookTags = () => {
                             ))
                     }
                 </select>
-                <button type="submit">Ajouter</button>
+                <button type="submit">Add</button>
             </form>
 
         </div>

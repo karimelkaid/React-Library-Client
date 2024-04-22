@@ -10,6 +10,7 @@ import { refreshWindow} from "../utils/globalFunctions.tsx";
 function Author() {
     const { authorId } = useParams();
     const [author, setAuthor] = useState<IAuthor>({id: -1, firstname: '', lastname: ''});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadAuthor();
@@ -29,6 +30,7 @@ function Author() {
             }
 
         }
+        setLoading(false);
     }
 
     /*
@@ -58,7 +60,9 @@ function Author() {
     }
 
 
-    if (!author) return <div>Chargement de l'auteur...</div>;
+    if (loading) {
+        return <p>Loading author...</p>;
+    }
 
     return (
         <div>

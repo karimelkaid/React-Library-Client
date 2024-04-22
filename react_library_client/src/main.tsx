@@ -16,7 +16,7 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: (
-                    <p>Bienvenue sur le site de gestion de la bibliothèque.</p>
+                    <p>Welcome to the library! Use the navigation bar to browse the authors and books.</p>
                 )
             },
             {
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: "",
-                        element: <p>Choisissez un auteur pour voir ses informations.</p>
+                        element: <p>Choose an author to see its details.</p>
                     },
                     {
                         path: ":authorId",
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: "",
-                        element: <p>Choisissez un livre pour voir ses informations.</p>
+                        element: <p>Choose a book to see its details.</p>
                     },
                     {
                         path: ":bookId",
