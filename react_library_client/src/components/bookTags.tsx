@@ -142,15 +142,17 @@ const BookTags = () => {
 
             <h2>Ajouter un tag</h2>
             <form onSubmit={handleAddTagOnBook}>
-                <select name="tagId">
+                <select name="tagId" defaultValue="">
+                    <option value="" disabled selected>
+                        Select a tag...
+                    </option>
                     {
-                        // Display the tags that are not already associated with the book
                         allTags.filter(allTag => !tags.some(tag => tag.id === allTag.id))
-                        .map((tag) => (
-                            <option key={tag.id} value={tag.id}>
-                                {tag.name}
-                            </option>
-                        ))
+                            .map((tag) => (
+                                <option key={tag.id} value={tag.id}>
+                                    {tag.name}
+                                </option>
+                            ))
                     }
                 </select>
                 <button type="submit">Ajouter</button>

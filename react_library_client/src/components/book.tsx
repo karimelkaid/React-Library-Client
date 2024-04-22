@@ -1,8 +1,9 @@
 import {NavLink, useParams} from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { Author, Book as IBook } from "../types";
-import { get_author, get_book } from "../api";
+import {get_author, get_book, update_book} from "../api";
 import BookTags from "./bookTags.tsx";
+import EditableText from "./editableText.tsx";
 
 function Book() {
     const { bookId } = useParams();
@@ -48,18 +49,24 @@ function Book() {
 
     return (
         <div>
-            <h2>{book.title}</h2>
+
+            <h2>
+                <EditableText value={book.title} onUpdate={(newTitle) => update_book(book.id, {title: newTitle})}/>
+            </h2>
             <p>
                 <strong>Author:</strong>
                 <NavLink to={"/authors/" + author?.id}>
                     {author ? `${author.firstname} ${author.lastname}` : 'Auteur inconnu'}
                 </NavLink>
             </p>
-            <p>
-                <strong>Publication Year:</strong> {book.publication_year}
+            <p className="row">Published : &nbsp;
+                <EditableText
+                    value={book.publication_year != null ? book.publication_year.toString() : ''}
+                    onUpdate={(newPublicationYear) => update_book(book.id, {publication_year: parseInt(newPublicationYear)})}
+                />
             </p>
 
-            <BookTags />
+            <BookTags/>
         </div>
     );
 }

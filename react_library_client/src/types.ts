@@ -10,6 +10,11 @@ export type AuthorCreationData = {
     lastname: string,
 }
 
+export type AuthorUpdateData = {
+    firstname?: string,
+    lastname?: string,
+}
+
 export type Book = {
     id: number,
     title: string,

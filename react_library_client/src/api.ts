@@ -1,6 +1,6 @@
-import {AuthorCreationData, BookCreationData} from "./types.ts";
+import {AuthorCreationData, AuthorUpdateData, BookCreationData} from "./types.ts";
 
-const apiBasename = "http://localhost:3000";
+const apiBasename = "http://192.168.1.9:3000";
 
 interface GetAuthorsParams {
     page?: number;      // Number of the page to fetch
@@ -99,6 +99,20 @@ export async function remove_author(authorId: number) {
     }
 }
 
+export async function update_author(authorId: number, authorUpdateData: AuthorUpdateData) {
+    const res = await fetch(`${apiBasename}/authors/${authorId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(authorUpdateData),
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
+}
+
 
 // -------------------------------------------- BOOKS --------------------------------------------
 interface GetBooksParams {
@@ -135,6 +149,20 @@ export async function get_books({ page, pageSize, title }: GetBooksParams) {
         books,
         totalCount
     };
+}
+
+export async function update_book(bookId: number, bookData: BookCreationData) {
+    const res = await fetch(`${apiBasename}/books/${bookId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookData),
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg);
+    }
 }
 
 
