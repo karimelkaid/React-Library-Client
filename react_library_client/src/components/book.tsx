@@ -81,7 +81,7 @@ function Book() {
         refreshWindow();
     }
 
-    if (loading) return <div>Chargement des informations du livre...</div>;
+    if (loading) return <div>Loading book information...</div>;
     if (book.id === -1) return <div>Livre introuvable.</div>;
 
     return (

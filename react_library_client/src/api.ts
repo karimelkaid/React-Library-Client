@@ -8,16 +8,6 @@ interface GetAuthorsParams {
     lastname?: string; // Lastname of the author to search for
 }
 
-/*
-    get_authors :
-        Fetches the list of authors from the api.
-    Parameter(s) :
-        - None
-    Return :
-        - Returns an array of author objects if the request is successful.
-        - Throws an error with a relevant message if the request fails.
-*/
-
 export async function get_authors({ page, pageSize, lastname }: GetAuthorsParams) {
     // Calculating skip and take values
     const skip = page && pageSize ? (page - 1) * pageSize : undefined;
@@ -52,16 +42,6 @@ export async function get_authors({ page, pageSize, lastname }: GetAuthorsParams
     };
 
 }
-
-/*
-    add_author :
-        Sends a POST request to the api to add a new author.
-    Parameter(s) :
-        - authorCreationData: AuthorCreationData : An object containing data for creating the new author, including 'firstname' and 'lastname'.
-    Return :
-        - Returns the newly created author object if the request is successful.
-        - Throws an error with a relevant message if the request fails.
-*/
 
 export async function add_author(authorCreationData : AuthorCreationData) {
     const res = await fetch(`${apiBasename}/authors`, {

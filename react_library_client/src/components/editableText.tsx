@@ -38,7 +38,6 @@ const EditableText = ({ value, onUpdate } : EditableTextProps) => {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     disabled={updating}
                 />

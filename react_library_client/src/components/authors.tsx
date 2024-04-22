@@ -127,16 +127,46 @@ function Authors() {
             <div id="sidebar">
                 {errorMessage && <p className="error">{errorMessage}</p>}
 
-                <form onSubmit={handleFilter}>
-                    <input type="text" name="lastnameFilter" placeholder="Filter by Last Name" />
-                    <button type="submit">Filter</button>
+                <form onSubmit={handleFilter} style={{marginBottom: '20px'}}>
+                    <input
+                        type="text"
+                        name="lastnameFilter"
+                        placeholder="Filter by Last Name"
+                        style={{
+                            marginRight: '10px',
+                            padding: '8px',
+                            border: '1px solid #ccc',
+                            borderRadius: '4px'
+                        }}
+                    />
+                    <button type="submit" style={{
+                        padding: '8px 16px',
+                        border: 'none',
+                        borderRadius: '4px',
+                        backgroundColor: '#5c6bc0',
+                        color: 'white',
+                        cursor: 'pointer'
+                    }}>
+                        Filter
+                    </button>
                 </form>
 
-
                 <form onSubmit={handleAdd}>
-                    <input type="text" name="firstname" placeholder="First Name"/>
-                    <input type="text" name="lastname" placeholder="Last Name"/>
-                    <button type="submit">Add Author</button>
+                    <input
+                        type="text"
+                        name="firstname"
+                        placeholder="First Name"
+                        className={"txtAddAuthor"}
+                    />
+                    <input
+                        type="text"
+                        name="lastname"
+                        placeholder="Last Name"
+                        className={"txtAddAuthor"}
+                    />
+                    <button type="submit" className={"btnAddAuthor"}>
+                        Add Author
+                    </button>
                 </form>
 
                 <Pagination
@@ -152,13 +182,13 @@ function Authors() {
                             <NavLink to={`/authors/${author.id}`}>
                                 {author.firstname} {author.lastname}
                             </NavLink>
-                            <button className="small danger" onClick={() => handleRemove(author.id)}>Supprimer</button>
+                            <button className="small danger" onClick={() => handleRemove(author.id)}>Delete</button>
                         </li>
                     ))}
                 </ul>
             </div>
             <div id="info">
-                <Outlet />
+                <Outlet/>
             </div>
         </div>
     );
